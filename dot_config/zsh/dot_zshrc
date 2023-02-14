@@ -1,0 +1,20 @@
+source /var/home/dharbin/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /var/home/dharbin/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fpath=(/var/home/dharbin/.config/zsh/plugins/zsh-completions/src $fpath)
+autoload -U compinit; compinit
+bindkey '\e[A' history-search-backward
+bindkey '\e[B' history-search-forward
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt incappendhistory
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+export PATH=$HOME/.local/bin:$HOME/bin:$PATH
+source /var/home/dharbin/.config/zsh/plugins/spaceship-prompt/spaceship.zsh
+source /var/home/dharbin/.config/zsh/plugins/spaceship-distrobox/spaceship-distrobox.zsh
+SPACESHIP_RPROMPT_ORDER=(distrobox)
+
+
