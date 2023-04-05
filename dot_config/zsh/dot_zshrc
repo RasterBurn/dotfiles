@@ -20,5 +20,4 @@ export PATH=$HOME/.local/bin:$HOME/bin:$PATH
 source $HOME/.config/zsh/plugins/spaceship-prompt/spaceship.zsh
 source $HOME/.config/zsh/plugins/spaceship-distrobox/spaceship-distrobox.zsh
 SPACESHIP_RPROMPT_ORDER=(distrobox)
-
-
+alias ll="ls -l --color=auto"
