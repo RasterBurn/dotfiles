@@ -1,0 +1,12 @@
+{{- $profiles := list "work" "home" -}}
+{{- $email := promptStringOnce . "email" "Email address" -}}
+{{- $profile := promptChoiceOnce . "profile" "What type of host are you on" $profiles -}}
+
+[data]
+    profile = {{ $profile | quote }}
+    email = {{ $email | quote }}
+
+{{- if eq $profile "work" }}
+[data.wrike]
+    token = ""
+{{- end }}
