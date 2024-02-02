@@ -60,6 +60,15 @@ require('packer').startup(function(use)
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
+  use {
+    "nvim-neotest/neotest",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-neotest/neotest-python"
+    }
+  }
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
   if has_plugins then
@@ -280,6 +289,14 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
+require("neotest").setup({
+  adapters = {
+    require("neotest-python")({
+    }),
+  },
+})
+vim.keymap.set('n', '<leader>t', "<cmd>lua require('neotest').run.run()<cr>", { desc = 'Run nearest tests' })
+vim.keymap.set('n', '<leader>T', "<cmd>lua require('neotest').summary.toggle()<cr>", { desc = 'Toggle summary window' })
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
