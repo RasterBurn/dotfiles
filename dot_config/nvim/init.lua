@@ -220,6 +220,15 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+
+  {
+    "nvimtools/none-ls.nvim",
+    opts = function(_, opts)
+      local nls = require("null-ls")
+      opts.sources = opts.sources or {}
+      table.insert(opts.sources, nls.builtins.formatting.black)
+    end,
+  }
 }, {})
 
 -- [[ Setting options ]]
@@ -489,7 +498,9 @@ end
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
-require('mason').setup()
+require('mason').setup {
+  ensure_installed = { 'black' }
+}
 require('mason-lspconfig').setup()
 
 -- Enable the following language servers
