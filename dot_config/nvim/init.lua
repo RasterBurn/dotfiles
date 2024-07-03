@@ -220,7 +220,6 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
-
   {
     "jay-babu/mason-null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
@@ -228,6 +227,10 @@ require('lazy').setup({
       "williamboman/mason.nvim",
       "nvimtools/none-ls.nvim",
     },
+  },
+  {
+    'stevearc/conform.nvim',
+    opts = {},
   },
 }, {})
 
@@ -499,13 +502,10 @@ end
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
 require('mason').setup()
-local null_ls = require 'null-ls'
-null_ls.setup()
-
-require ('mason-null-ls').setup({
-    ensure_installed = {'black'},
-    handlers = {},
-})
+require('mason-null-ls').setup {
+  ensure_installed = { 'black' },
+  handlers = {}
+}
 require('mason-lspconfig').setup()
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -528,6 +528,15 @@ local servers = {
   --},
 }
 
+require('conform').setup({
+  formatters_by_ft = {
+    python = { "black" }
+  },
+  format_on_save = {
+    timeout_ms = 500,
+    lsp_format = "fallback"
+  },
+})
 -- Setup neovim lua configuration
 require('neodev').setup()
 
