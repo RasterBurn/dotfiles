@@ -504,12 +504,7 @@ null_ls.setup()
 
 require ('mason-null-ls').setup({
     ensure_installed = {'black'},
-    handlers = {
-        function() end, -- disables automatic setup of all null-ls sources
-        black = function(source_name, methods)
-          null_ls.register(null_ls.builtins.formatting.black)
-        end,
-    },
+    handlers = {},
 })
 require('mason-lspconfig').setup()
 -- Enable the following language servers
