@@ -222,13 +222,13 @@ require('lazy').setup({
   },
 
   {
-    "nvimtools/none-ls.nvim",
-    opts = function(_, opts)
-      local nls = require("null-ls")
-      opts.sources = opts.sources or {}
-      table.insert(opts.sources, nls.builtins.formatting.black)
-    end,
-  }
+    "jay-babu/mason-null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "williamboman/mason.nvim",
+      "nvimtools/none-ls.nvim",
+    },
+  },
 }, {})
 
 -- [[ Setting options ]]
@@ -498,11 +498,20 @@ end
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
-require('mason').setup {
-  ensure_installed = { 'black' }
-}
-require('mason-lspconfig').setup()
+require('mason').setup()
+local null_ls = require 'null-ls'
+null_ls.setup()
 
+require ('mason-null-ls').setup({
+    ensure_installed = {'black'},
+    handlers = {
+        function() end, -- disables automatic setup of all null-ls sources
+        black = function(source_name, methods)
+          null_ls.register(null_ls.builtins.formatting.black)
+        end,
+    },
+})
+require('mason-lspconfig').setup()
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
