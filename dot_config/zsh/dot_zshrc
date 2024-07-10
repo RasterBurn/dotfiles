@@ -21,3 +21,6 @@ source $HOME/.config/zsh/plugins/spaceship-prompt/spaceship.zsh
 source $HOME/.config/zsh/plugins/spaceship-distrobox/spaceship-distrobox.zsh
 SPACESHIP_RPROMPT_ORDER=(distrobox)
 alias ll="ls -l --color=auto"
+if (( $+commands[direnv] )); then
+  eval "$(direnv hook zsh)"
+fi
