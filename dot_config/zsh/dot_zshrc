@@ -24,3 +24,6 @@ alias ll="ls -l --color=auto"
 if (( $+commands[direnv] )); then
   eval "$(direnv hook zsh)"
 fi
+if (( $+commands[zoxide] )); then
+  eval "$(zoxide init zsh)"
+fi
