@@ -28,3 +28,6 @@ fi
 if (( $+commands[zoxide] )); then
   eval "$(zoxide init zsh)"
 fi
+if (( $+commands[pyenv] )); then
+  eval "$(pyenv init -)"
+fi

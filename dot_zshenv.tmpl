@@ -5,3 +5,5 @@ export SAVEHIST=10000
 {{- if eq .profile "work" }}
 export WRIKE_TOK={{ .wrike.token }}
 {{- end}}
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
