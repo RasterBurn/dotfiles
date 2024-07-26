@@ -25,8 +25,33 @@ export PATH=$HOME/.local/bin:$HOME/bin:$PATH
 source $HOME/.config/zsh/plugins/spaceship-prompt/spaceship.zsh
 source $HOME/.config/zsh/plugins/spaceship-distrobox/spaceship-distrobox.zsh
 SPACESHIP_RPROMPT_ORDER=(distrobox)
+export BAT_THEME=Dracula
 alias ll="ls -l --color=auto"
 alias k=kubectl
+if (( $+commands[lsd] )); then
+  alias ls=lsd
+fi
+if (( $+commands[fzf] )); then
+  eval "$(fzf --zsh)"
+
+  if (( $+commands[fd] )); then
+    export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+
+    # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+    # - The first argument to the function ($1) is the base path to start traversal
+    # - See the source code (completion.{bash,zsh}) for the details.
+    _fzf_compgen_path() {
+      fd --hidden --exclude .git . "$1"
+    }
+
+    # Use fd to generate the list for directory completion
+    _fzf_compgen_dir() {
+      fd --type=d --hidden --exclude .git . "$1"
+    }
+  fi
+fi
 if (( $+commands[direnv] )); then
   eval "$(direnv hook zsh)"
 fi
