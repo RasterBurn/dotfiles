@@ -22,7 +22,11 @@ source $HOME/.config/zsh/plugins/spaceship-distrobox/spaceship-distrobox.zsh
 SPACESHIP_RPROMPT_ORDER=(distrobox)
 export BAT_THEME=Dracula
 alias ll="ls -l --color=auto"
-alias k=kubectl
+if (( $+commands[kubecolor] )); then
+  alias k=kubecolor
+else
+  alias k=kubectl
+fi
 if (( $+commands[lsd] )); then
   alias ls=lsd
 fi
@@ -56,3 +60,4 @@ fi
 if (( $+commands[pyenv] )); then
   eval "$(pyenv init -)"
 fi
+
