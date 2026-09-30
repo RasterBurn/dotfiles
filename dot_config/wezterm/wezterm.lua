@@ -34,4 +34,7 @@ config.keys = {
     action = wezterm.action.ToggleFullScreen,
   },
 }
+
+config.window_close_confirmation = 'NeverPrompt'
+
 return config
